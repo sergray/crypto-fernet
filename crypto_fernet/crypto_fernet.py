@@ -11,7 +11,10 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 
 class BinaryFileType(argparse.FileType):
-    """Wrapper class returning stdin/stdout buffers, so I/O is always byte-oriented"""
+    """
+    Wrapper class returning stdin/stdout buffers,
+    so I/O is always byte-oriented
+    """
     def __call__(self, string):
         if string == '-':
             if 'r' in self._mode:
@@ -45,7 +48,9 @@ def add_salt(salt: bytes, ciphertext: bytes) -> bytes:
 
 
 def extract_salt(salted_ciphertext: bytes):
-    """Extract salt and ciphertext from salted ciphertext and returns as a tuple"""
+    """
+    Extract salt and ciphertext from salted ciphertext and returns as a tuple
+    """
     encoded_salt, ciphertext = salted_ciphertext.split(b':')
     salt = base64.urlsafe_b64decode(encoded_salt)
     return salt, ciphertext
@@ -91,26 +96,31 @@ def decrypt_command(args):
 def main():
     """Main function"""
     parser = argparse.ArgumentParser(prog='crypto_fernet')
-    parser.add_argument('-s', '--secret', required=True,
+    parser.add_argument(
+        '-s', '--secret', required=True,
         type=BinaryFileType('rb'),
         help='Path to the file with the secret for encryption/decryption')
 
     subparsers = parser.add_subparsers(help='sub-command help')
 
     encrypt_parser = subparsers.add_parser('encrypt', help='encrypt help')
-    encrypt_parser.add_argument('-i', '--input', type=BinaryFileType('rb'),
+    encrypt_parser.add_argument(
+        '-i', '--input', type=BinaryFileType('rb'),
         default=sys.stdin.buffer,
         help='Path to the plain text input')
-    encrypt_parser.add_argument('-o', '--output', type=BinaryFileType('wb'),
+    encrypt_parser.add_argument(
+        '-o', '--output', type=BinaryFileType('wb'),
         default=sys.stdout.buffer,
         help='Path to the cipher text output')
     encrypt_parser.set_defaults(func=encrypt_command)
 
     decrypt_parser = subparsers.add_parser('decrypt', help='decrypt help')
-    decrypt_parser.add_argument('-i', '--input', type=BinaryFileType('rb'),
+    decrypt_parser.add_argument(
+        '-i', '--input', type=BinaryFileType('rb'),
         default=sys.stdin.buffer,
         help='Path to the cipher text input')
-    decrypt_parser.add_argument('-o', '--output', type=BinaryFileType('wb'),
+    decrypt_parser.add_argument(
+        '-o', '--output', type=BinaryFileType('wb'),
         default=sys.stdout.buffer,
         help='Path to the plain text output')
     decrypt_parser.set_defaults(func=decrypt_command)

@@ -6,8 +6,8 @@ Crypto Fernet
 .. image:: https://img.shields.io/pypi/v/crypto_fernet.svg
         :target: https://pypi.python.org/pypi/crypto_fernet
 
-.. image:: https://img.shields.io/travis/sergray/crypto_fernet.svg
-        :target: https://travis-ci.com/sergray/crypto_fernet
+.. image:: https://img.shields.io/travis/sergray/crypto-fernet.svg
+        :target: https://travis-ci.com/sergray/crypto-fernet
 
 .. image:: https://readthedocs.org/projects/crypto-fernet/badge/?version=latest
         :target: https://crypto-fernet.readthedocs.io/en/latest/?version=latest
